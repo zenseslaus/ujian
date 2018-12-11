@@ -131,9 +131,11 @@
                     if (this.readyState == 4 && this.status == 200) {
                         var myObj = JSON.parse(this.responseText);
                         txt += "<table border='1' bgColor='white' class='fixed_header'>"
-                        txt += "<tr><td>" + "NIK" + "</td><td>" + "Nama" + "</td><td>" + "Tanggal Lahir" + "</td></tr>"
+                        txt += "<tr><td>" + "NIK" + "</td><td>" + "Nama" + "</td><td>" + "Tanggal Lahir" + "</td><td>"
+                                + "</td></tr>"
                         for (x in myObj) {
-                            txt += "<tr><td>" + myObj[x].nik + "</td><td>" + myObj[x].nama + "</td><td>" + myObj[x].tanggalLahir + "</td></tr>";
+                            txt += "<tr><td>" + myObj[x].nik + "</td><td>" + myObj[x].nama + "</td><td>" + myObj[x].tanggalLahir
+                                    + "<button type=\"submit\" onclick=\"myFunction1('" + myObj[x] + "')\">Pesan</button>" + "</td></tr>";
                         }
                         txt += "</table>"
                         document.getElementById("demo").innerHTML = txt;
