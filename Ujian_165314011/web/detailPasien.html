@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Cari Nama</title>
+        <title>Detail Pasien</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Cabin|Poppins|Ubuntu" rel="stylesheet">
@@ -103,55 +103,51 @@
         <section>
             <nav>
                 <ul>
-                    <li><a href="HalamanListDokter.html"><font color="white">Tampilkan List Dokter</font></a></li>
-                    <li><a href="HalamanListPasien.html"><font color="white">Tampilkan List Pasien</font></a></li>
-                    <li><a href="HalamanListLocation.html"><font color="white">Tampilkan List Location</font></a></li>
-                    <li><a href="HalamanListKlinikAdmin.html"><font color="white">Tampilkan List Klinik</font></a></li>
-                    <li><a href="HalamanListAntrian.html"><font color="white">Tampilkan List Antrian</font></a></li>
-                    <li><a href="index.html"><font color="white">Keluar</font></a></li>
+                    
                 </ul>
             </nav>
             <article>
-                Cari: <br>
-                <input type="text" id="input" placeholder="Masukkan Nama" required>
-                <button id="cariButton" onclick="loadDoc()" >Cari</button>
-                <p id="demo"></p>
+                
             </article>
         </section>
 
         <script>
             function loadDoc() {
-                var url = "http://206.189.38.188:8080/myrs/webresources/pasien/cariNamaPasien?nama=" + input.value;
+                var url = "http://206.189.38.188:8080/myrs/webresources/pasien/cariNamaPasien?nama=" + getCookie("nik");
                 var xhttp = new XMLHttpRequest();
                 var x;
                 var txt = "";
                 xhttp.open("GET", url, true);
                 xhttp.send();
                 xhttp.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
+                    if (this.readyState === 4 && this.status === 200) {
                         var myObj = JSON.parse(this.responseText);
                         txt += "<table border='1' bgColor='white' class='fixed_header'>"
                         txt += "<tr><td>" + "NIK" + "</td><td>" + "Nama" + "</td><td>" + "Tanggal Lahir" + "</td><td>"
                                 + "</td></tr>"
                         for (x in myObj) {
                             txt += "<tr><td>" + myObj[x].nik + "</td><td>" + myObj[x].nama + "</td><td>" + myObj[x].tanggalLahir
-                                    + "</td><td>" + "<button type=\"submit\"onclick=\"myFunction1('" + myObj[x].nik + "')\">Detail</button>" + "</td></tr>";
+                                    + "</td><td>" + "</td></tr>";
                         }
                         txt += "</table>"
                         document.getElementById("demo").innerHTML = txt;
                     }
                 }
             }
-            function myFunction1(nik) {
-//                alert(kodeJadwal);
-                var myWindow = window.open("detailPasien.html", "_self");
-                setCookie("nik", nik, 1);
-            }
-            function setCookie(cname, cvalue, exdays) {
-                var d = new Date();
-                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-                var expires = "expires=" + d.toUTCString();
-                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            function getCookie(cname) {
+                var name = cname + "=";
+                var decodedCookie = decodeURIComponent(document.cookie);
+                var ca = decodedCookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) === ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) === 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
             }
         </script>
     </body>
